@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { ModalComponent } from '../modal/modal.component';
 
 import { HomePage } from './home.page';
 

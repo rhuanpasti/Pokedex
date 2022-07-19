@@ -1,5 +1,7 @@
 import { Component, HostListener } from '@angular/core';
+import { UntypedFormBuilder } from '@angular/forms';
 import { PokedexService } from '../../pokeAPI/pokedex.service';
+import { retry, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -8,23 +10,35 @@ import { PokedexService } from '../../pokeAPI/pokedex.service';
 })
 
 export class HomePage {
-
-  constructor(public PokedexService: PokedexService) {}
+  constructor(public PokedexService: PokedexService) { }
   public listapokemon = new Array<any>();
 
   mostrarPokemons() {
     this.PokedexService.getPokemons()
-    .subscribe((resposta: any)=> {
+      .subscribe((resposta: any) => {
         resposta.results.forEach(result => {
           this.PokedexService.getPokeInfo(result.name)
-          .subscribe((resposta: any)=>{
-          this.listapokemon.push(resposta);
-          console.log(this.listapokemon);
+            .subscribe((resposta: any) => {
+              this.listapokemon.push(resposta);
+              console.log(this.listapokemon);
+            });
         });
-        });
-    })
+      })
   }
-  
+
+  mostrarPesquisa(pesquisa) {
+    this.PokedexService.procuraPokemon(pesquisa)
+      .subscribe((resposta: any) => {
+        resposta.results.forEach(result => {
+          this.PokedexService.getPokeInfo(result.pesquisa)
+            .subscribe((resposta: any) => {
+              this.listapokemon.push(resposta);
+              console.log(this.listapokemon);
+            });
+        });
+      })
+  }
+
   mostrar: boolean = false;
 
   public pokepropierties: Array<any> = [];
@@ -39,13 +53,23 @@ export class HomePage {
   escondemodal() {
     this.mostrar = !this.mostrar;
   }
+
   ionViewDidEnter() {
     this.mostrarPokemons();
   }
-  
-  scrolled = 0;
 
-  
+  public funcaoPesquisa(e) {
+    console.log(e);
+    let value = e.detail.value;
 
-
+    if (value.length === 0 || !value.trim()) {
+      this.mostrarPokemons();
+      return;
+    }
+    this.PokedexService.procuraPokemon(value).subscribe(res => {
+      this.listapokemon = [res];
+    }, err => {
+      this.listapokemon = [];
+    });
+  }
 }
