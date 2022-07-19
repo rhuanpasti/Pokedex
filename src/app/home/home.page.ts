@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { PokedexService } from '../../pokeAPI/pokedex.service';
 
 @Component({
@@ -42,5 +42,10 @@ export class HomePage {
   ionViewDidEnter() {
     this.mostrarPokemons();
   }
+  
+  scrolled = 0;
+
+  
+
 
 }
