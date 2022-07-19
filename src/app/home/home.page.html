@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Pokédex
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="conteudo">
+
+  <ion-card class="pokespace" *ngFor="let pokename of listapokemon">
+    <ion-img class="imagem" [src]="''+pokename.sprites.front_default"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{pokename.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+     <a (click)=mostramodal(pokename)>Habilidades e Status</a>
+    </ion-card-content>
+  </ion-card>
+
+
+
+
+  <ng-container *ngIf="mostrar">
+    <ion-card class="modal">
+      <a (click)=escondemodal()> <h5>[X]</h5> </a>
+      <ion-img class="imagem" [src]="''+pokepropierties.sprites.front_default"></ion-img>
+      <ion-card-header>
+        <ion-card-title> {{pokepropierties.name}} </ion-card-title>
+      </ion-card-header>
+      <ion-card-content >
+        Tipo :  {{pokepropierties.name}} <br>
+
+        Peso :  {{pokepropierties.weight}} <br>
+
+        Tamanho :  {{pokepropierties.weight}}  <br>
+
+        Lista de habilidades: <br> ** {{pokepropierties.abilities[0].ability.name}} <br>
+
+        ** {{pokepropierties.abilities[1].ability.name}} <br>
+
+        Estatísticas de velocidade :{{pokepropierties.stats[5].base_stat}} <br>
+
+        Defesa :   {{pokepropierties.stats[2].base_stat}}<br>
+
+        Ataque :   {{pokepropierties.stats[1].base_stat}}<br>
+
+        Hp :   {{pokepropierties.stats[0].base_stat}}<br>
+
+      </ion-card-content>
+    </ion-card>
+    <div class="overlay" (click)=escondemodal()></div>
+  </ng-container>
+    
+
