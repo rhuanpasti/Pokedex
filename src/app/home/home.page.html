@@ -1,21 +1,22 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="header">
   <ion-toolbar>
     <ion-title>
-      Pokédex
+      Pokedex
     </ion-title>
-   <ion-searchbar placeholder="Nome ou código do seu pokemon" class="searchbar" (ionChange)="funcaoPesquisa($event)"></ion-searchbar>
+   <ion-searchbar placeholder="Nome ou código do pokemon" class="searchbar" (input)='funcaoPesquisa($event)'></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content [fullscreen]="true" class="conteudo">
+<ion-content [fullscreen]="true" class="ion-text-capitalize ion-text-center ion-text-sm-{small}">
+  <ion-content>
   <ion-card class="pokespace" *ngFor="let pokename of listapokemon" (click)=mostramodal(pokename)>
     <ion-img class="imagem" [src]="''+pokename?.sprites.front_default"></ion-img>
     <ion-card-header>
-      <ion-card-title> #{{pokename.id}} <br> {{pokename.name}}</ion-card-title>
+      <ion-card-title > ID: #{{pokename.id}} <br> {{pokename.name}}</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      <a>>Habilidades e Status</a>
+    <ion-card-content class="habilidades">
+      >  Detalhes
     </ion-card-content>
   </ion-card>
 
@@ -23,34 +24,36 @@
   <ng-container *ngIf="mostrar">
     <ion-card class="modal">
       <a (click)=escondemodal()>
-        <h5>[X]</h5>
+        <p class="fechamodal">[X]</p>
       </a>
       <ion-img class="imagem" [src]="''+pokepropierties?.sprites.front_default"></ion-img>
       <ion-card-header>
-        <ion-card-title> {{pokepropierties?.name}} </ion-card-title>
+        <ion-card-title> {{pokepropierties.name}} </ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        Tipo : {{pokepropierties?.name}} <br>
+      <ion-card-content >
+        Tipo : {{pokepropierties.types[0].type.name}} <br>
 
-        Peso : {{pokepropierties?.weight}} <br>
+        Peso : {{pokepropierties.weight}} <br>
 
-        Tamanho : {{pokepropierties?.weight}} <br>
+        Tamanho : {{(pokepropierties.height)/10}} m <br>
 
-        Lista de habilidades: <br> ** {{pokepropierties?.abilities[0].ability.name}} <br>
+        Lista de habilidades: <br> ** {{pokepropierties.abilities[0].ability.name}} <br>
 
-        ** {{pokepropierties?.abilities[1].ability.name}} <br>
+        ** {{pokepropierties.abilities[1].ability.name}} <br>
 
-        Estatísticas de velocidade :{{pokepropierties?.stats[5].base_stat}} <br>
+        Estatísticas de velocidade :{{pokepropierties.stats[5].base_stat}} <br>
 
-        Defesa : {{pokepropierties?.stats[2].base_stat}}<br>
+        Defesa : {{pokepropierties.stats[2].base_stat}}<br>
 
-        Ataque : {{pokepropierties?.stats[1].base_stat}}<br>
+        Ataque : {{pokepropierties.stats[1].base_stat}}<br>
 
-        Hp : {{pokepropierties?.stats[0].base_stat}}<br>
+        Hp : {{pokepropierties.stats[0].base_stat}}<br>
 
       </ion-card-content>
     </ion-card>
     <div class="overlay" (click)=escondemodal()></div>
   </ng-container>
+  </ion-content>
+  </ion-content>
     
 

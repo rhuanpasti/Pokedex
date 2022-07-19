@@ -10,17 +10,18 @@ import { retry, catchError } from 'rxjs/operators';
 })
 
 export class HomePage {
+
   constructor(public PokedexService: PokedexService) { }
   public listapokemon = new Array<any>();
 
-  mostrarPokemons() {
+  public mostrarTodosOsPokemons() {
     this.PokedexService.getPokemons()
       .subscribe((resposta: any) => {
         resposta.results.forEach(result => {
           this.PokedexService.getPokeInfo(result.name)
             .subscribe((resposta: any) => {
+              this.listapokemon = [];
               this.listapokemon.push(resposta);
-              console.log(this.listapokemon);
             });
         });
       })
@@ -32,8 +33,8 @@ export class HomePage {
         resposta.results.forEach(result => {
           this.PokedexService.getPokeInfo(result.pesquisa)
             .subscribe((resposta: any) => {
+              this.listapokemon = [];
               this.listapokemon.push(resposta);
-              console.log(this.listapokemon);
             });
         });
       })
@@ -46,7 +47,7 @@ export class HomePage {
   mostramodal(pokename) {
     this.mostrar = !this.mostrar;
     this.pokepropierties = pokename;
-    console.log(this.pokepropierties);
+    //console.log(this.pokepropierties);
     return this.pokepropierties;
   }
 
@@ -55,19 +56,20 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.mostrarPokemons();
+    this.mostrarTodosOsPokemons();
   }
 
   public funcaoPesquisa(e) {
-    console.log(e);
-    let value = e.detail.value;
-
-    if (value.length === 0 || !value.trim()) {
-      this.mostrarPokemons();
+    const textoBusca = e?.target?.value?.toLowerCase();
+    const buscaVazia = (!textoBusca) || textoBusca.length === 0 || (textoBusca.trim() == '');
+    console.log("função pesquisa",textoBusca);
+    if (buscaVazia){
+      console.log("Resetando Pagina");
+      this.mostrarTodosOsPokemons()
       return;
     }
-    this.PokedexService.procuraPokemon(value).subscribe(res => {
-      this.listapokemon = [res];
+    this.PokedexService.procuraPokemon(textoBusca).subscribe(resultado => {
+      this.listapokemon = [resultado];
     }, err => {
       this.listapokemon = [];
     });
