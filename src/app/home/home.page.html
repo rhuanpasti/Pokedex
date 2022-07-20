@@ -32,9 +32,9 @@
     
   <ng-container *ngIf="mostrar">
     <ion-card class="modal">
-      <a (click)=escondemodal()>
-        <p class="fechamodal">[X]</p>
-      </a>
+  
+        <p (click)=escondeModal() class="fechamodal" >[X]</p>
+
       <ion-img class="imagem" [src]="''+detalhesPokemon?.sprites?.front_default"></ion-img>
       <ion-card-header>
         <ion-card-title> {{detalhesPokemon.name}} </ion-card-title>
