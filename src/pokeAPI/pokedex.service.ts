@@ -8,12 +8,12 @@ import { HomePage } from '../app/home/home.page';
   providedIn: 'root'
 })
 export class PokedexService {
-
+  
 
   constructor(public http: HttpClient) { }
 
   public getPokemons() {
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/?limit=20`);
+    return this.http.get(`https://pokeapi.co/api/v2/pokemon/?limit=30&offset=30`);
   }
   public getPokeInfo(name: string) {
     return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
