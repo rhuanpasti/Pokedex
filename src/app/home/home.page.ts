@@ -1,5 +1,4 @@
 import { Component, HostListener } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
 import { PokedexService } from '../../pokeAPI/pokedex.service';
 import { retry, catchError } from 'rxjs/operators';
 import { ListaPokemons } from '../model/lista-pokemons';
