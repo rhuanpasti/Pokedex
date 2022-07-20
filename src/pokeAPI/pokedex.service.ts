@@ -19,8 +19,5 @@ export class PokedexService {
     return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
   }
-  public procuraPokemon(pesquisa){
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${pesquisa}`);
-  }
 }
 

@@ -7,53 +7,43 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content [fullscreen]="true" class="ion-text-capitalize ion-text-center ion-text-sm-{small}">
   <ion-content>
-  <ion-card class="pokespace" *ngFor="let pokename of listapokemon" (click)=mostramodal(pokename)>
-    <ion-img class="imagem" [src]="''+pokename?.sprites.front_default"></ion-img>
+  <ion-card class="pokespace" *ngFor="let pokemon of listapokemon" (click)=mostramodal(pokemon)>
+    <ion-img class="imagem" [src]="pokemon.Url"></ion-img>
     <ion-card-header>
-      <ion-card-title > ID: #{{pokename.id}} <br> {{pokename.name}}</ion-card-title>
+      <ion-card-title > ID: #{{pokemon.Id}} <br> {{pokemon.Nome}}</ion-card-title>
     </ion-card-header>
     <ion-card-content class="habilidades">
       >  Detalhes
     </ion-card-content>
   </ion-card>
 
-
   <ng-container *ngIf="mostrar">
     <ion-card class="modal">
       <a (click)=escondemodal()>
         <p class="fechamodal">[X]</p>
       </a>
-      <ion-img class="imagem" [src]="''+pokepropierties?.sprites.front_default"></ion-img>
+      <ion-img class="imagem" [src]="''+detalhespokemon?.sprites?.front_default"></ion-img>
       <ion-card-header>
-        <ion-card-title> {{pokepropierties.name}} </ion-card-title>
+        <ion-card-title> {{detalhespokemon.name}} </ion-card-title>
       </ion-card-header>
       <ion-card-content >
-        Tipo : {{pokepropierties.types[0].type.name}} <br>
-
-        Peso : {{pokepropierties.weight}} <br>
-
-        Tamanho : {{(pokepropierties.height)/10}} m <br>
-
-        Lista de habilidades: <br> ** {{pokepropierties.abilities[0].ability.name}} <br>
-
-        ** {{pokepropierties.abilities[1].ability.name}} <br>
-
-        Estatísticas de velocidade :{{pokepropierties.stats[5].base_stat}} <br>
-
-        Defesa : {{pokepropierties.stats[2].base_stat}}<br>
-
-        Ataque : {{pokepropierties.stats[1].base_stat}}<br>
-
-        Hp : {{pokepropierties.stats[0].base_stat}}<br>
-
+        <div *ngIf="detalhespokemon && detalhespokemon.types && detalhespokemon.types[0] && detalhespokemon.types[0].type">
+          Tipo : {{detalhespokemon.types[0].type.name}} <br>
+          Peso : {{detalhespokemon.weight}} <br>  
+          Tamanho : {{(detalhespokemon.height)/10}} m <br>  
+          Lista de habilidades: <br> ** {{detalhespokemon.abilities[0].ability.name}} <br>  
+          ** {{detalhespokemon.abilities[1].ability.name}} <br>  
+          Estatísticas de velocidade :{{detalhespokemon.stats[5].base_stat}} <br>  
+          Defesa : {{detalhespokemon.stats[2].base_stat}}<br>  
+          Ataque : {{detalhespokemon.stats[1].base_stat}}<br>  
+          Hp : {{detalhespokemon.stats[0].base_stat}}<br>
+        </div>
       </ion-card-content>
     </ion-card>
     <div class="overlay" (click)=escondemodal()></div>
   </ng-container>
   </ion-content>
   </ion-content>
-    
 

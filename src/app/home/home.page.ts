@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { PokedexService } from '../../pokeAPI/pokedex.service';
 import { retry, catchError } from 'rxjs/operators';
+import { ListaPokemons } from '../model/lista-pokemons';
 
 @Component({
   selector: 'app-home',
@@ -12,66 +13,67 @@ import { retry, catchError } from 'rxjs/operators';
 export class HomePage {
 
   constructor(public PokedexService: PokedexService) { }
-  public listapokemon = new Array<any>();
+  
+  public listapokemon = new Array<ListaPokemons>();
+  mostrar: boolean = false;
+  public detalhespokemon: Array<any> = [];
+
+  ionViewDidEnter() {
+    this.mostrarTodosOsPokemons();
+  }
 
   public mostrarTodosOsPokemons() {
     this.PokedexService.getPokemons()
       .subscribe((resposta: any) => {
-        resposta.results.forEach(result => {
-          this.PokedexService.getPokeInfo(result.name)
-            .subscribe((resposta: any) => {
-              this.listapokemon = [];
-              this.listapokemon.push(resposta);
+        resposta.results.forEach( pokemon => {
+            const partesUrl = (''+pokemon.url).split('/');
+            const idPokemon = partesUrl[partesUrl.length-2];
+            const urlImagemDefault = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${idPokemon}.png`;
+            this.listapokemon.push({ Nome: pokemon.name, Id: idPokemon, Url: urlImagemDefault });
             });
         });
-      })
-  }
+      }
+  
 
-  mostrarPesquisa(pesquisa) {
-    this.PokedexService.procuraPokemon(pesquisa)
-      .subscribe((resposta: any) => {
-        resposta.results.forEach(result => {
-          this.PokedexService.getPokeInfo(result.pesquisa)
-            .subscribe((resposta: any) => {
-              this.listapokemon = [];
-              this.listapokemon.push(resposta);
-            });
-        });
-      })
-  }
-
-  mostrar: boolean = false;
-
-  public pokepropierties: Array<any> = [];
-
-  mostramodal(pokename) {
+   mostramodal(pokemon: ListaPokemons) {
     this.mostrar = !this.mostrar;
-    this.pokepropierties = pokename;
-    //console.log(this.pokepropierties);
-    return this.pokepropierties;
+   
+    
+    this.PokedexService.getPokeInfo(pokemon.Nome).subscribe(
+      (resultado: any) => {
+        this.detalhespokemon = resultado;
+      },
+      (erro) => {
+        alert('Falha ao capturar detalhes do pokemon')
+      }
+    );
   }
 
   escondemodal() {
     this.mostrar = !this.mostrar;
   }
 
-  ionViewDidEnter() {
-    this.mostrarTodosOsPokemons();
-  }
+  
 
+ 
   public funcaoPesquisa(e) {
-    const textoBusca = e?.target?.value?.toLowerCase();
-    const buscaVazia = (!textoBusca) || textoBusca.length === 0 || (textoBusca.trim() == '');
-    console.log("função pesquisa",textoBusca);
-    if (buscaVazia){
-      console.log("Resetando Pagina");
-      this.mostrarTodosOsPokemons()
+    const textoBusca = e?.target?.value?.toLowerCase();    
+    const buscaVazia = (!textoBusca) || textoBusca?.length === 0 || (textoBusca?.trim() == '');
+
+    if (buscaVazia) {
+      this.listapokemon = [];
+      this.mostrarTodosOsPokemons();
       return;
     }
-    this.PokedexService.procuraPokemon(textoBusca).subscribe(resultado => {
-      this.listapokemon = [resultado];
-    }, err => {
-      this.listapokemon = [];
-    });
+
+    this.PokedexService.getPokeInfo(textoBusca).subscribe(
+      (resultado: any) => {                
+        const urlImagemDefault = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${resultado.id}.png`;
+        this.listapokemon = [ { Nome: resultado.name, Id : resultado.id, Url: urlImagemDefault } ]
+      },
+      (erro) => {
+        this.listapokemon = [];
+      }
+    );
   }
 }
