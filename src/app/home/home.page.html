@@ -7,9 +7,9 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- Efeito de loading -->
 <ion-content [fullscreen]="true" class="ion-text-capitalize ion-text-center ion-text-sm-{small}">
   <ion-content>
-    
     <ion-card *ngIf="listaPoke.length == 0" class="esperabusca" >
           <ion-skeleton-text animated  class="imagem"></ion-skeleton-text>
     <p ><ion-skeleton-text animated class="buscando"></ion-skeleton-text></p> 
@@ -18,7 +18,7 @@
     </ion-card>
 
   
-        
+<!-- card de visualização básico do pokemon. -->         
   <ion-card class="pokespace" *ngFor="let pokemon of listaPoke" (click)=mostramodal(pokemon)>
     <ion-img class="imagem" [src]="pokemon.Url"></ion-img>
     <ion-card-header style="padding-top: 0px;">
@@ -29,12 +29,10 @@
     </ion-card-content>
   </ion-card>
 
-    
+<!-- container para visualização do modal com as informações do pokemon solicitado-->    
   <ng-container *ngIf="mostrar">
     <ion-card class="modal">
-  
         <p (click)=escondeModal() class="fechamodal" >[X]</p>
-
       <ion-img class="imagem" [src]="''+detalhesPokemon?.sprites?.front_default"></ion-img>
       <ion-card-header>
         <ion-card-title> {{detalhesPokemon.name}} </ion-card-title>
@@ -57,8 +55,15 @@
   </ng-container>
 
 
+<!-- container para visualização dos botões de próxima página caso a pesquisa retorne algum valor ou não resultados.-->
+<ng-container >  
+    <div class="buttons-proxima-anterior" *ngIf="listaPoke.length == 0">
+    <p> Estamos localizando seu Pokemon ...</p>
+    </div>
+  </ng-container>
 <ng-container >
-  <div class="buttons-proxima-anterior">
+
+  <div class="buttons-proxima-anterior" *ngIf="listaPoke.length !== 0 && listaPoke.length >1">
  <ion-button color="danger" (click)=funcaoPaginaAnterior()> PÁGINA ANTERIOR</ion-button>
   <ion-button color="success" (click)=funcaoProximaPagina()>PRÓXIMA PAGINA</ion-button>
   </div>

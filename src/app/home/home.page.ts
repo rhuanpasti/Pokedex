@@ -18,11 +18,12 @@ export class HomePage {
   public detalhesPokemon: Array<any> = [];
   offset=0;
 
+//Faz com que a tela sempre seja carregada com a lista de pokemons ao iniciar.
   ionViewDidEnter() {
     this.mostrarTodosOsPokemons(this.offset);
   }
   
-  
+//Faz a requisição para a api e monta a tela com os pokemons obtidos.
   public mostrarTodosOsPokemons(offset) {
     this.PokedexService.getPokemons(this.offset)
       .subscribe((resposta: any) => {
@@ -35,11 +36,10 @@ export class HomePage {
         });
       }
   
-
    mostramodal(pokemon: ListaPokemons) {
     this.mostrar = !this.mostrar;
    
-    
+  //Metodo que busca os dados detalhados do pokemon
     this.PokedexService.getPokeInfo(pokemon.Nome).subscribe(
       (resultado: any) => {
         this.detalhesPokemon = resultado;
@@ -69,10 +69,9 @@ export class HomePage {
     }
     this.listaPoke = [];
     this.mostrarTodosOsPokemons(this.offset);
-
   }
 
- 
+ // Função para executar a pesquisa pelo nome e ID do pokemon.
   public funcaoPesquisa(e) {
     const textoBusca = e?.target?.value?.toLowerCase();    
     const buscaVazia = (!textoBusca) || textoBusca?.length === 0 || (textoBusca?.trim() == '');
