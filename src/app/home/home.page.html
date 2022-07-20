@@ -9,6 +9,16 @@
 
 <ion-content [fullscreen]="true" class="ion-text-capitalize ion-text-center ion-text-sm-{small}">
   <ion-content>
+    
+    <ion-card *ngIf="listapokemon.length == 0" class="esperabusca" >
+          <ion-skeleton-text animated  class="imagem"></ion-skeleton-text>
+    <p ><ion-skeleton-text animated class="buscando"></ion-skeleton-text></p> 
+    <p ><ion-skeleton-text animated class="buscando"></ion-skeleton-text></p> 
+
+    </ion-card>
+
+  
+        
   <ion-card class="pokespace" *ngFor="let pokemon of listapokemon" (click)=mostramodal(pokemon)>
     <ion-img class="imagem" [src]="pokemon.Url"></ion-img>
     <ion-card-header style="padding-top: 0px;">
@@ -19,6 +29,7 @@
     </ion-card-content>
   </ion-card>
 
+    
   <ng-container *ngIf="mostrar">
     <ion-card class="modal">
       <a (click)=escondemodal()>

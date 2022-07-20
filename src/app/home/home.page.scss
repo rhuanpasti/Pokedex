@@ -23,12 +23,31 @@ ion-card-header
   text-align: center;
   cursor: pointer;
 }
-
+.esperabusca{
+  display: inline-block;
+  width: 20vh;
+  height: 34vh;
+  text-align: center;
+  border-style: none;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+.buscando{
+  margin-top: 2vh;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  font-weight: bolder;
+  font-size: medium;
+ 
+}
 .imagem {
   width: 18vh;
   height: 18vh;
   margin-left: auto;
   margin-right: auto;
+  border-style: hidden;
 }
 
 .habilidades {
