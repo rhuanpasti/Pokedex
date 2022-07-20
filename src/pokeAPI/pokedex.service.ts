@@ -12,8 +12,8 @@ export class PokedexService {
 
   constructor(public http: HttpClient) { }
 
-  public getPokemons() {
-    return this.http.get(`https://pokeapi.co/api/v2/pokemon/?limit=30&offset=0`);
+  public getPokemons(offset) {
+    return this.http.get(`https://pokeapi.co/api/v2/pokemon/?limit=10&offset=${offset}`);
   }
   public getPokeInfo(name: string) {
     return this.http.get(`https://pokeapi.co/api/v2/pokemon/${name}`);

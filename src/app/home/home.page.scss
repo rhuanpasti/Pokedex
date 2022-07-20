@@ -92,6 +92,13 @@ ion-card-header
   color: #ff000f;
   cursor: pointer;
 }
+.buttons-proxima-anterior{
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 @media(max-width:450px) {
   .habilidades {

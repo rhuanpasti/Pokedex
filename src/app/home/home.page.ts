@@ -13,22 +13,24 @@ export class HomePage {
 
   constructor(public PokedexService: PokedexService) { }
   
-  public listapokemon = new Array<ListaPokemons>();
+  public listaPoke = new Array<ListaPokemons>();
   mostrar: boolean = false;
-  public detalhespokemon: Array<any> = [];
+  public detalhesPokemon: Array<any> = [];
+  offset=0;
 
   ionViewDidEnter() {
-    this.mostrarTodosOsPokemons();
+    this.mostrarTodosOsPokemons(this.offset);
   }
-
-  public mostrarTodosOsPokemons() {
-    this.PokedexService.getPokemons()
+  
+  
+  public mostrarTodosOsPokemons(offset) {
+    this.PokedexService.getPokemons(this.offset)
       .subscribe((resposta: any) => {
         resposta.results.forEach( pokemon => {
             const partesUrl = (''+pokemon.url).split('/');
             const idPokemon = partesUrl[partesUrl.length-2];
             const urlImagemDefault = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${idPokemon}.png`;
-            this.listapokemon.push({ Nome: pokemon.name, Id: idPokemon, Url: urlImagemDefault });
+            this.listaPoke.push({ Nome: pokemon.name, Id: idPokemon, Url: urlImagemDefault });
             });
         });
       }
@@ -40,7 +42,7 @@ export class HomePage {
     
     this.PokedexService.getPokeInfo(pokemon.Nome).subscribe(
       (resultado: any) => {
-        this.detalhespokemon = resultado;
+        this.detalhesPokemon = resultado;
       },
       (erro) => {
         alert('Falha ao capturar detalhes do pokemon')
@@ -48,11 +50,27 @@ export class HomePage {
     );
   }
 
-  escondemodal() {
+  escondeModal() {
     this.mostrar = !this.mostrar;
   }
 
-  
+  funcaoProximaPagina(){
+    this.offset = this.offset+10;
+    this.listaPoke = [];
+    this.mostrarTodosOsPokemons(this.offset);
+  }
+
+  funcaoPaginaAnterior(){
+    this.offset = this.offset-10;
+    if(this.offset <= -1 ){
+    this.offset=0;
+    alert("Você já está na primeira página.")
+    return
+    }
+    this.listaPoke = [];
+    this.mostrarTodosOsPokemons(this.offset);
+
+  }
 
  
   public funcaoPesquisa(e) {
@@ -60,18 +78,18 @@ export class HomePage {
     const buscaVazia = (!textoBusca) || textoBusca?.length === 0 || (textoBusca?.trim() == '');
 
     if (buscaVazia) {
-      this.listapokemon = [];
-      this.mostrarTodosOsPokemons();
+      this.listaPoke = [];
+      this.mostrarTodosOsPokemons(this.offset);
       return;
     }
 
     this.PokedexService.getPokeInfo(textoBusca).subscribe(
       (resultado: any) => {                
         const urlImagemDefault = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${resultado.id}.png`;
-        this.listapokemon = [ { Nome: resultado.name, Id : resultado.id, Url: urlImagemDefault } ]
+        this.listaPoke = [ { Nome: resultado.name, Id : resultado.id, Url: urlImagemDefault } ]
       },
       (erro) => {
-        this.listapokemon = [];
+        this.listaPoke = [];
       }
     );
   }

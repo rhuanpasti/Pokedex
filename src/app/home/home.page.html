@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true" class="ion-text-capitalize ion-text-center ion-text-sm-{small}">
   <ion-content>
     
-    <ion-card *ngIf="listapokemon.length == 0" class="esperabusca" >
+    <ion-card *ngIf="listaPoke.length == 0" class="esperabusca" >
           <ion-skeleton-text animated  class="imagem"></ion-skeleton-text>
     <p ><ion-skeleton-text animated class="buscando"></ion-skeleton-text></p> 
     <p ><ion-skeleton-text animated class="buscando"></ion-skeleton-text></p> 
@@ -19,7 +19,7 @@
 
   
         
-  <ion-card class="pokespace" *ngFor="let pokemon of listapokemon" (click)=mostramodal(pokemon)>
+  <ion-card class="pokespace" *ngFor="let pokemon of listaPoke" (click)=mostramodal(pokemon)>
     <ion-img class="imagem" [src]="pokemon.Url"></ion-img>
     <ion-card-header style="padding-top: 0px;">
       <ion-card-title > <p class="caracteristicas">ID: #{{pokemon.Id}} <br> Name: {{pokemon.Nome}} </p></ion-card-title>
@@ -35,26 +35,34 @@
       <a (click)=escondemodal()>
         <p class="fechamodal">[X]</p>
       </a>
-      <ion-img class="imagem" [src]="''+detalhespokemon?.sprites?.front_default"></ion-img>
+      <ion-img class="imagem" [src]="''+detalhesPokemon?.sprites?.front_default"></ion-img>
       <ion-card-header>
-        <ion-card-title> {{detalhespokemon.name}} </ion-card-title>
+        <ion-card-title> {{detalhesPokemon.name}} </ion-card-title>
       </ion-card-header>
       <ion-card-content >
-        <div *ngIf="detalhespokemon && detalhespokemon.types && detalhespokemon.types[0] && detalhespokemon.types[0].type">
-          Tipo : {{detalhespokemon.types[0].type.name}} <br>
-          Peso : {{detalhespokemon.weight}} <br>  
-          Tamanho : {{(detalhespokemon.height)/10}} m <br>  
-          Lista de habilidades: <br> ** {{detalhespokemon.abilities[0].ability.name}} <br>  
-          ** {{detalhespokemon.abilities[1].ability.name}} <br>  
-          Estatísticas de velocidade :{{detalhespokemon.stats[5].base_stat}} <br>  
-          Defesa : {{detalhespokemon.stats[2].base_stat}}<br>  
-          Ataque : {{detalhespokemon.stats[1].base_stat}}<br>  
-          Hp : {{detalhespokemon.stats[0].base_stat}}<br>
+        <div *ngIf="detalhesPokemon && detalhesPokemon.types && detalhesPokemon.types[0] && detalhesPokemon.types[0].type">
+          Tipo : {{detalhesPokemon.types[0].type.name}} <br>
+          Peso : {{detalhesPokemon.weight}} <br>  
+          Tamanho : {{(detalhesPokemon.height)/10}} m <br>  
+          Lista de habilidades: <br> ** {{detalhesPokemon.abilities[0].ability.name}} <br>  
+          ** {{detalhesPokemon.abilities[1].ability.name}} <br>  
+          Estatísticas de velocidade :{{detalhesPokemon.stats[5].base_stat}} <br>  
+          Defesa : {{detalhesPokemon.stats[2].base_stat}}<br>  
+          Ataque : {{detalhesPokemon.stats[1].base_stat}}<br>  
+          Hp : {{detalhesPokemon.stats[0].base_stat}}<br>
         </div>
       </ion-card-content>
     </ion-card>
-    <div class="overlay" (click)=escondemodal()></div>
+    <div class="overlay" (click)=escondeModal()></div>
   </ng-container>
-  </ion-content>
-  </ion-content>
 
+
+<ng-container >
+  <div class="buttons-proxima-anterior">
+ <ion-button color="danger" (click)=funcaoPaginaAnterior()> PÁGINA ANTERIOR</ion-button>
+  <ion-button color="success" (click)=funcaoProximaPagina()>PRÓXIMA PAGINA</ion-button>
+  </div>
+</ng-container>
+  </ion-content>
+  </ion-content>
+  
