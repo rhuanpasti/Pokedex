@@ -1,37 +1,47 @@
-ion-content{
+ion-content {
   --ion-background-color: rgba(128, 212, 245, 0.945);
 }
-ion-card{
+
+ion-card {
   --ion-background-color: rgb(255, 255, 255);
 }
 
+ion-toolbar {
+  --ion-background-color: rgb(247, 238, 125);
+}
+ion-card-header
 
-.header{
+.header {
   padding: 10px;
   background-color: rgb(247, 238, 125);
 }
-ion-toolbar{
 
-  --ion-background-color:rgb(247, 238, 125);
-}
-.pokespace{
-  display:inline-block;
-  width: 30vh;
-  height: 32vh;
+.pokespace {
+  display: inline-block;
+  width: 25vh;
+  height: 34vh;
   text-align: center;
   cursor: pointer;
 }
-.imagem{
+
+.imagem {
   width: 18vh;
   height: 18vh;
   margin-left: auto;
   margin-right: auto;
 }
-.habilidades{
+
+.habilidades {
   color: #000fff;
   font-weight: bold;
-  font-size: medium;
+  font-size: large;
 }
+.caracteristicas{
+  color: #797979;
+  font-weight: bold;
+  font-size: large;
+}
+
 .modal {
   background: #fff;
   border-radius: 8px;
@@ -44,6 +54,7 @@ ion-toolbar{
   transform: translate(-50%, -50%);
   z-index: 11;
 }
+
 .overlay {
   background: #000;
   height: 100vh;
@@ -54,7 +65,8 @@ ion-toolbar{
   width: 100vw;
   z-index: 10;
 }
-.fechamodal{
+
+.fechamodal {
   margin-right: 0px;
   margin-top: 0px;
   position: absolute;
@@ -62,36 +74,84 @@ ion-toolbar{
   cursor: pointer;
 }
 
-@media(max-width:450px)
-{
-  .habilidades{
-    color: #000fff;
-    font-weight:bold;
-    font-size:small;
-    padding-bottom: 5x;
+@media(max-width:450px) {
+  .habilidades {
+    font-size: small;
   }
-  .pokespace{
-    width: 30vh;
+  .caracteristicas{
+    font-size: small;
+  }
+  .pokespace {
+    width: 25vh;
     height: 32vh;
   }
-  .imagem{
+  .imagem {
     width: 14vh;
     height: 14vh;
-  } 
+  }
 }
-@media(max-width:450px) and (max-height:600px){
-  .habilidades{
-    color: #000fff;
-    font-weight:bold;
-    font-size:small;
+@media(max-width:300px) {
+  .pokespace {
+    width: 25vh;
+    height: 20vh;
   }
-  .pokespace{
-    width: 35vh;
-    height: 35vh;
-  }
-  .imagem{
+  .imagem {
     width: 14vh;
     height: 14vh;
-  } 
+  }
 }
+
+@media(max-height:750px) {
+  .habilidades {
+    font-size: medium;
+  }
+  .caracteristicas{
+    font-size: medium;
+  }
+  .pokespace {
+    width: 25vh;
+    height: 34vh;
+  }
+  .imagem {
+    width: 14vh;
+    height: 14vh;
+  }
+}
+
+@media(max-height:520px) {
+  .habilidades {
+    font-size: medium;
+  }
+  .caracteristicas{
+    font-size: medium;
+  }
+  .pokespace {
+    width: 60vh;
+    height: 50vh;
+  }
+  .imagem {
+    width: 18vh;
+    height: 18vh;
+  }
+}
+  @media(max-height:300px) {
+    .pokespace {
+      width: 80vh;
+      height: 60vh;
+    }
+  }
+ @media(max-height:300px) and (max-width:250px) {
+  .pokespace {
+    width: 60vh;
+    height: 60vh;
+  }
+  .habilidades {
+    font-size: small;
+  }
+  .caracteristicas{
+    font-size: small;
+  }
+  }
+    
+  
 
