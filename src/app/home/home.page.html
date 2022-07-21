@@ -40,7 +40,7 @@
       <ion-card-content >
         <div *ngIf="detalhesPokemon && detalhesPokemon.types && detalhesPokemon.types[0] && detalhesPokemon.types[0].type">
           Tipo : {{detalhesPokemon.types[0].type.name}} <br>
-          Peso : {{detalhesPokemon.weight}} <br>  
+          Peso : {{(detalhesPokemon.weight)/10}}kg <br>  
           Tamanho : {{(detalhesPokemon.height)/10}} m <br>  
           Lista de habilidades: <br> ** {{detalhesPokemon.abilities[0].ability.name}} <br>  
           ** {{detalhesPokemon.abilities[1].ability.name}} <br>  
