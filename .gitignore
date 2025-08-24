@@ -39,6 +39,8 @@ src/environments/*.env
 firebase-debug.log
 .firebaserc
 
+.firebase/
+
 # OS generated files
 ehthumbs.db
 Icon?
