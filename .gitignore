@@ -30,3 +30,30 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+
+# Sensitive data and environment files
+src/environments/*.ts.local
+src/environments/*.env
+.env
+.env.*
+firebase-debug.log
+.firebaserc
+
+# OS generated files
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# IDEs and editors
+.idea/
+.vscode/
+.history/
+.tmp/
+
+# Build outputs
+out-tsc/
+tmp/
+temp/
+build/
+dist/
+www/
